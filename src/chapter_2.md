@@ -1,4 +1,4 @@
-# Chapter 1 : State Diagram for the SmartMirror
+# Chapter 2 : State Diagram for the SmartMirror
 ```plantuml
 @startuml
 [*] --> Idle
