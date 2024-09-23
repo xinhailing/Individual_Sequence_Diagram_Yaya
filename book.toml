@@ -3,7 +3,7 @@ authors = ["xinhailing"]
 language = "en"
 multilingual = false
 src = "src"
-title = "Yaya_Diagram_1"
+title = "Yaya_Diagram"
 
 
 [preprocessor.plantuml]
