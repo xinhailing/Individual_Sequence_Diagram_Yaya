@@ -1,16 +1,16 @@
-# Chapter 3 : Sequence diagram for Commincation
+# Chapter 4 : Sequence diagram for Calling the lightTurnOn Function
 ```plantuml
 @startuml
 participant PresenceDetectionTask
-participant GVL
-participant ToggleLightFunction
+participant GVLnew
+participant lightTurnOnFunction
 participant Light
 
-PresenceDetectionTask -> GVL: Read distanceToMirror
-PresenceDetectionTask -> ToggleLightFunction: Call ToggleLight(GVL.lightStatus, GVL.distanceToMirror)
-ToggleLightFunction -> PresenceDetectionTask: Return new light status
+PresenceDetectionTask -> GVLnew: Read distanceToMirror
+PresenceDetectionTask -> lightTurnOnFunction: Call lightTurnOn(GVLnew.lightStatus, GVLnew.distanceToMirror)
+lightTurnOnFunction -> PresenceDetectionTask: Return new light status
 
-PresenceDetectionTask -> GVL: Update lightStatus
+PresenceDetectionTask -> GVLnew: Update lightStatus
 PresenceDetectionTask -> Light: Toggle light ON or OFF based on lightStatus
 Light -> User: Light status feedback (ON/OFF)
 @enduml
