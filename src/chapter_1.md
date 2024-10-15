@@ -1,30 +1,22 @@
-# Chapter 1 : State Diagram for Yaya
+# Chapter 1 : State Diagram for Task 1 : LightControl
 ```plantuml
 @startuml
-[*] --> UserFar
+[*] --> Light_Off
 
-UserFar: User is far from the mirror (light is off)
-UserFar --> UserNear : User within 1 meter of mirror
+state Light_Off {
+    [*] --> Checking_Distance
+    Checking_Distance --> Light_On : User is within 1 meter
+}
 
-UserNear: User is near the mirror, light turns on
-UserNear --> TimerRunning : Start 15-minute timer
-UserNear --> UserFar : User moves away (distance > 1 meter)
+state Light_On {
+    [*] --> Checking_Distance
+    Checking_Distance --> Light_On : User remains within 1 meter
+    Checking_Distance --> Timer_Start : User moves away (distance > 1 meter)
+}
 
-TimerRunning: Timer is running for 15 minutes
-TimerRunning --> LightOff : Timer expires after 15 minutes
-TimerRunning --> UserFar : User moves away (distance > 1 meter)
-
-LightOff: Light turns off
-LightOff --> UserFar : Reset to UserFar state
-
+Light_On --> Light_Off : Timer elapsed
+Timer_Start --> Light_On : User returns within 1 meter
 @enduml
 
+
 ```
-
-
-[State List
-1. User Far: Yaya is far from the mirror (more than 1 meter away).
-2. User Near: Yaya is within 1 meter of the mirror, turning the light on.
-3. Timer Running: Yaya stays near the mirror, and the timer is active for 15 minutes.
-4. Light Off: The timer ends or Yaya moves away, turning the light off.
-]
