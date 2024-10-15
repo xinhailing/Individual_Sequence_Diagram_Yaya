@@ -1,18 +1,16 @@
-# Chapter 4 : Sequence diagram for Calling the lightTurnOn Function
+# Chapter 4 : Sequence diagram for Calling the checkDistance Function
 ```plantuml
 @startuml
-participant PresenceDetectionTask
-participant GVLnew
-participant lightTurnOnFunction
-participant Light
+participant LightControl
+participant CheckDistance
+participant GVL
 
-PresenceDetectionTask -> GVLnew: Read distanceToMirror
-PresenceDetectionTask -> lightTurnOnFunction: Call lightTurnOn(GVLnew.lightStatus, GVLnew.distanceToMirror)
-lightTurnOnFunction -> PresenceDetectionTask: Return new light status
+LightControl -> GVL: Get distanceToMirror
+LightControl -> CheckDistance: Call CheckDistance(distance)
+CheckDistance -> LightControl: Return TRUE if within 1 meter, else FALSE
 
-PresenceDetectionTask -> GVLnew: Update lightStatus
-PresenceDetectionTask -> Light: Toggle light ON or OFF based on lightStatus
-Light -> User: Light status feedback (ON/OFF)
+LightControl -> GVL: Set lightStatus based on CheckDistance result
 @enduml
+
 
 ```

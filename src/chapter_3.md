@@ -1,39 +1,24 @@
-# Chapter 3 : Sequence diagram for Commincation
+# Chapter 3 : Sequence diagram for Commincation Between Task 1 and 2
 ```plantuml
 @startuml
-participant User
-participant MirrorSystem
-participant Light
-participant Timer
+actor User
+participant LightControl
+participant TimerControl
+participant GVL
 
-User -> MirrorSystem: Walk towards mirror
-MirrorSystem -> Light: Detect user within 1 meter, turn light ON
-activate Light
-Light -> User: Light is ON
-MirrorSystem -> Timer: Start 15-minute timer
-activate Timer
+User -> LightControl: Moves towards mirror
+LightControl -> GVL: Set lightStatus = TRUE
+GVL -> TimerControl: Read lightStatus
+TimerControl -> TimerControl: Timer is not active
 
-User -> MirrorSystem: User stays near mirror
-Timer -> Timer: Count down (15 minutes)
+User -> LightControl: Moves away from mirror
+LightControl -> GVL: Set lightStatus = TRUE
+GVL -> TimerControl: Start 15s timer
+TimerControl -> TimerControl: Timer runs for 15 seconds
 
-User -> MirrorSystem: User moves away (before 15 minutes)
-MirrorSystem -> Light: Turn light OFF
-deactivate Light
-MirrorSystem -> Timer: Stop timer
-deactivate Timer
-MirrorSystem -> User: Light is OFF, user far
-
-alt User stays near mirror for 15 minutes
-    Timer -> MirrorSystem: Timer expires (15 minutes)
-    MirrorSystem -> Light: Turn light OFF
-    deactivate Light
-end
-
+TimerControl -> LightControl: Light off after 15s
+LightControl -> GVL: Set lightStatus = FALSE
 @enduml
 
+
 ```
-[Actor list:
-1. User: The person approaching and interacting with the mirror.
-2. MirrorSystem: The control system that detects the user’s presence and controls the light and timer.
-3. Light: The system that turns on and off based on the user’s proximity.
-4. Timer: Tracks the 15-minute interval after the light is turned on]
