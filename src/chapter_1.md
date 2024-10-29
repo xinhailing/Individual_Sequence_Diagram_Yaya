@@ -19,3 +19,8 @@ Timer_Start --> Light_On : User returns within 1 meter
 @enduml
 
 ```
+Sequence of Events://
+1.User Moves Towards Mirror//
+2.Timer Check//
+3.User Moves Away from Mirror//
+4.Turning Off the Light (After 5 seconds)//
